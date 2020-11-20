@@ -22,7 +22,6 @@ Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
 
-
 # save refrences to each table
 Measurement = Base.classes.measurement
 Station = Base.classes.station
@@ -48,7 +47,7 @@ def welcome():
         f"A list of stations and their respective station numbers: /api/v1.0/stations<br>"
         f"Temperature observations at the most active station over the previous 12 months: /api/v1.0/tobs<br>"
         f"Enter a start date (yyyy-mm-dd) to retrieve the minimum, maximum, and average temperatures for all dates after the specified date: /api/v1.0/<start><br>"
-        f"Enter both a start and end date (yyyy-mm-dd) to retrieve the minimum, maximum, and average temperatures for that date range: /api/v1.0/<start>/<end><br>"
+        f"Enter both a start and end date (yyyy-mm-dd) to retrieve the minimum, maximum, and average temperatures for that date range: /api/v1.0/<start><end><br>"
     )
 
 
@@ -61,7 +60,7 @@ def precipitation():
 
     # query for the date and precipitation for the last year
     precipitation = session.query(Measurement.date, Measurement.prcp).\
-        filter(Measurment.date >= prev_year).all()
+        filter(Measurement.date >= prev_year).all()
 
     # Dict with date as the key and prcp as the value
     precip = {date: prcp for date, prcp in precipitation}
